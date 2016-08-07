@@ -1,0 +1,120 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: httpbin-blue-service
+spec:
+  selector:
+    app: httpbin
+    color: blue
+  ports:
+    - protocol: "TCP"
+      port: 8000
+      targetPort: 8000
+      nodePort: 31000
+  type: NodePort
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: httpbin-green-service
+spec:
+  selector:
+    app: httpbin
+    color: green
+  ports:
+    - protocol: "TCP"
+      port: 8000
+      targetPort: 8000
+      nodePort: 32000
+  type: NodePort
+---
+apiVersion: v1
+kind: Secret
+data:
+  tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURZakNDQWtvQ0NRQzI3Z0hFVEFnNnp6QU5CZ2txaGtpRzl3MEJBUXNGQURCek1Rc3dDUVlEVlFRR0V3SlUKVnpFUE1BMEdBMVVFQ0F3R1ZHRnBkMkZ1TVE4d0RRWURWUVFIREFaVVlXbHdaV2t4RVRBUEJnTlZCQW9NQ0U1MQphM0lnVEhSa01RMHdDd1lEVlFRRERBUnVkV3R5TVNBd0hnWUpLb1pJaHZjTkFRa0JGaEZ1ZFd0eWN5NTNRR2R0CllXbHNMbU52YlRBZUZ3MHhOakEzTVRnd09ETTJNek5hRncweE5qQTRNVGN3T0RNMk16TmFNSE14Q3pBSkJnTlYKQkFZVEFsUlhNUTh3RFFZRFZRUUlEQVpVWVdsM1lXNHhEekFOQmdOVkJBY01CbFJoYVhCbGFURVJNQThHQTFVRQpDZ3dJVG5WcmNpQk1kR1F4RFRBTEJnTlZCQU1NQkc1MWEzSXhJREFlQmdrcWhraUc5dzBCQ1FFV0VXNTFhM0p6CkxuZEFaMjFoYVd3dVkyOXRNSUlCSWpBTkJna3Foa2lHOXcwQkFRRUZBQU9DQVE4QU1JSUJDZ0tDQVFFQXNxYzIKUytzUmZOQzNBUXdMT2lhdWltaEphcG1NZTMyM20zVXRGSWMvWGpBUkpmV3RLMkhGc3I2dUt3Vm9UNU53dGNtNwoyaFlYTit4dFYwTjJwa1J3dFVOWVRET0JVV1ErYVEzOUgyb2Vmb1ZiVkg2YmJvakl5UlpQM3hBVkVmNFAwOFZJCmxTcjVFWVZKUHBGV0dTd0J5RzBOQnh4bmZWR3VndTd4c3dIdVNSS0prY3JZNkNWN0tOOW1KZkFCbVhTdTFHT3EKQlFtaGI3S3hzM3FJeHQ1OGJGNWQxN2xpMHRPM3M1VVVXY1o3Z1AxK1psVUUyc2tjaUZiQVhqZmpkSWZMbFFmNQoxMEgrdUVxTUhaa1BZRiszcnhMOTNlMFp2VVYzNzVlTElzTVpJek9mTkxjL3hZNjNpTW41NVgzcDc3QVcvak9NCkw5T1c4eC9yWk9ST2JscEprd0lEQVFBQk1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQUI3TUNwcmpjOTVXVWoKSitmbU92c3lRMHQxZS80VEIvVnRCREhEelpVbXNUcTBnNVFKV3FabkFTOU5URnhjaU1TWWs3R1dGZ0RFbWliSApFMENzS2xHWWhTVHRBRTJmK0hBN2l3ZityMktlalNaVmFiKzVqM3YycUtkMXpZcGFXY0U1L3RGOEhnekI1elFTCkxRUk85clI0OWNxZitOUkwxWjVrbnBTZmdxbFAyMFFJeDJXNmNkNXB2UTUvRGszOXlTNklPWWhkaWhIVjJLd08KUHczNDlObjMxVm5qS1M4b3F3WjZJamhVS3N3YTRLZlZnRWhHclplbGdQeGlKVE02UWkwS3lzUnk0NHBGQjNZTgpzalQzV1RESWdXZGs4aUJWdDFMKzROaHdaL0dGSlhQY3VKRDZMaU45aWhnYjFKV2dhWC9zTFFZL25wblJHRzYyCndjdVR1eTloCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+  tls.key: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcFFJQkFBS0NBUUVBc3FjMlMrc1JmTkMzQVF3TE9pYXVpbWhKYXBtTWUzMjNtM1V0RkljL1hqQVJKZld0CksySEZzcjZ1S3dWb1Q1Tnd0Y203MmhZWE4reHRWME4ycGtSd3RVTllURE9CVVdRK2FRMzlIMm9lZm9WYlZINmIKYm9qSXlSWlAzeEFWRWY0UDA4VklsU3I1RVlWSlBwRldHU3dCeUcwTkJ4eG5mVkd1Z3U3eHN3SHVTUktKa2NyWQo2Q1Y3S045bUpmQUJtWFN1MUdPcUJRbWhiN0t4czNxSXh0NThiRjVkMTdsaTB0TzNzNVVVV2NaN2dQMStabFVFCjJza2NpRmJBWGpmamRJZkxsUWY1MTBIK3VFcU1IWmtQWUYrM3J4TDkzZTBadlVWMzc1ZUxJc01aSXpPZk5MYy8KeFk2M2lNbjU1WDNwNzdBVy9qT01MOU9XOHgvclpPUk9ibHBKa3dJREFRQUJBb0lCQUU4VmJCaXhSejE4V3ZadwpzV3VkZ2ZnczhBcnJTOS9DcUF0K0ZHV1k5VGtwaC8zSXdrNkk2bTRVc0o3RXR3YzYybEx1cVdTQ0VPY2xsc1ZoClROMlBRR0ZOSFlJbDdxSHNBU0NhRzZuVFhRcGUyQzRRR1pnVm51UTlKMEEwSzArYXFzRHcvUTlqUlh3M0IxUlcKRzhucXpDTS8rdHRoL0lIaUxhRXlTdllWN2JpVWFjUUY2TlNGcUNzTkxzODg1Q2tLYWk4aFUvYzdoZ3FEWFdwcwpFRVMrOVgyYzd2V3NQQU5mYTNkbHNaWldYdlZZY25oMTNpQWxhejVxeTlQZHpQdzlhWWVVYTE3Y0h1RFAyM3BMCkJkbXhCQ28xRHYwbEhJbktyRFg0azNyZnBpZiszRlJnWUNVSVV0aFA5MTFndkhXRGlDSFF1T1NwNHhXUlJiaDUKTVozWkRaa0NnWUVBMnR3bjNvRDFqaG95bUZOR2paQmxiTFVDTnJYQ2ovR1doYU5MWEZFTXhHcVlUWVlheTFJdAo5UTdBWDI0Smt5dmRGdzNzUk1ZNWVyWXpGYSs1TGFTaWVna0dMeVJSaDN1U0NBdkU0M3hBdmtZbjV4cGVURUV0Ck5WTnhXbDZqVXNLUXBMTzFxeUIvV3NuL1dsNk1Ydm9LMW5PVkdvMW5mQnIwMFdLL21qbUthZThDZ1lFQTBQaGUKVHlmMURheWQ4ZmpiR283bWpOTGpQSXFnQ0NwQ01BU3pJQkJZNTI2aWMvQnJOZ1pON3lEanN3RjJyRDN4RkxkTApFYmpZajU0dWpiMjRWWE4zbVpqTmR1a04xY3hmZFlqb1VPQkIxTTRQVFVjN2M2TWZYUnA4MlcvK0lMa2lnT21qClJYcWFPdnlvNzEvbmVjMlRJVmhBWHduVG44M1ZBRDVzS1cxWHpwMENnWUVBcEJzU1ZoZlNpRFFDbmc5TFJ0ancKQkR3UnBkNVNQa2JETy85K2dZRlFsbkxyTXE0TXAwbytwWkxqRW10YkNKeUtVa0FoV2t4Y1N6UVZSL3lVV0xJcgpGbUJ2MzZkVzdzVHNjZFlKVXg0WEdkVlhGRVhFVVY5SnU4T09xbGx1RTU5S2dBVTBnbFdDeVJ2UHVmNU5PT1k2CmZDVDh0NFV5QkcvZUJLY0x6bU80OHNjQ2dZRUF3cHlyNS9nRVppbStKcDFtSUFPNWZxamY2NEFHcmRQOU5BOE0KYXU0T2Zlb3c3TnlZWEFYZkNyYU1tQ2JpeUdJZlpQV1d1ZmgxNXJxZ0RHMEZnTDg2UVJkbk1qaTFJOGxqbFdoZApRd1MzQ21LbEtZa1BPeEJOb3oySnpFNWFVMHRYY01zbHZRMERHYkEzL0VaS29zcnJIUUM5WWtVYWl4YjhLVy80CjkxUFhsSmtDZ1lFQXVMdzRuZjdwTWp2eGFueElBcU05LzJwbXJMNDFUTmhsU3dJTGVzeit5YjR2Y3FtYXgwSisKN3JBUGE2VThMbE10bUlSY2N3c1Z2UFppMmg5YUc5eVl6K09GTjcraDQwdGlpQXh0WmZVR24rTU51Wk0wMkdjVAptVzQwUFJDVHlmZEZVZzNXNVZiRDFpaDAzRWpuUCtReU5lZFpGbGZZck5yQU55aDdpZmU1c1hFPQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=
+metadata:
+  name: tls-certs
+  namespace: default
+type: Opaque
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: httpbin-blue-deployment
+  labels:
+    app: httpbin
+    color: blue
+spec:
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      # unlike pod-nginx.yaml, the name is not included in the meta data as a unique name is
+      # generated from the deployment name
+      labels:
+        app: httpbin
+        color: blue
+    spec:
+      containers:
+      - name: httpbin
+        image: asia.gcr.io/instant-matter-785/httpbin:0.1.5
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8000
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: httpbin-green-deployment
+  labels:
+    app: httpbin
+    color: green
+spec:
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      # unlike pod-nginx.yaml, the name is not included in the meta data as a unique name is
+      # generated from the deployment name
+      labels:
+        app: httpbin
+        color: green
+    spec:
+      containers:
+      - name: httpbin
+        image: asia.gcr.io/instant-matter-785/httpbin:0.1.6
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8000
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: httpbin-ingress
+spec:
+  tls:
+    - secretName: tls-certs
+  rules:
+    - host: meepshop.tw
+      http:
+        paths:
+          - backend:
+              serviceName: httpbin-blue-service
+              servicePort: 8000
+    - host: stage.meepshop.tw
+      http:
+        paths:
+          - backend:
+              serviceName: httpbin-green-service
+              servicePort: 8000
